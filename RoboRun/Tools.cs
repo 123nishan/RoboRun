@@ -11,43 +11,22 @@ namespace RoboRun
 
 
 
-
-        public string[] splitCommand(String command)
+        public string isTheLocationEmpty(Item[,] boardArr, int x, int y)
         {
-            string[] splitCommands = command.Split(' ');
 
+            string a = boardArr[x, y]?.name;
+            if (a == null || a == "" || a == "empty")
+            {
 
-
-
-            return splitCommands;
-
+                return "empty";
+            }
+            else
+            {
+                return a;
+            }
 
 
         }
-        public string[] splitCoodinates(string[] coodinates)
-        {
-
-            string[] codinatesCommand = coodinates[1].Split(',');
-
-            return codinatesCommand;
-        }
-
-
-        public Item placeRobot(Item[,] board, int x, int y, string direction)
-        {
-
-            Item item = new Item(x, y, "ROBOT", direction);
-
-            board[x, y] = item;
-            return item;
-        }
-        public Item placeWall(Item[,] board, int x, int y)
-        {
-            Item item = new Item(x, y, "WALL", "");
-            board[x, y] = item;
-            return item;
-        }
-
 
 
 
@@ -106,6 +85,7 @@ namespace RoboRun
                 return "INVALID";
             }
         }
+
         public int searchForRobotXPoint(Item[,] boardArr)
         {
             int point = -1;
@@ -185,39 +165,60 @@ namespace RoboRun
 
         }
 
-        public int moveEastWestX(int x, string direction)
+
+
+        public string[] splitCommand(String command)
         {
+            string[] splitCommands = command.Split(' ');
 
-            int temp = x + 1;
-            if (direction.ToUpper() == "EAST")
-            {
-                if (temp > 4)
-                {
-                    temp = 0;
 
-                    return temp;
-                }
-                else
-                {
-                    return temp;
 
-                }
-            }
-            else
-            {
-                if (temp < 0)
-                {
 
-                    temp = 4;
-                    return temp;
-                }
-                else
-                {
-                    return temp;
-                }
-            }
+            return splitCommands;
+
+
 
         }
+        public string[] splitCoodinates(string[] coodinates)
+        {
+
+            string[] codinatesCommand = coodinates[1].Split(',');
+
+            return codinatesCommand;
+        }
+
+        public Item placeRobot(Item[,] board, int x, int y, string direction)
+        {
+
+            Item item = new Item(x, y, "ROBOT", direction);
+
+            board[x, y] = item;
+            return item;
+        }
+        public Item placeWall(Item[,] board, int x, int y)
+        {
+            Item item = new Item(x, y, "WALL", "");
+            board[x, y] = item;
+            return item;
+        }
+
+
+        public Boolean wallAhead(Item[,] board, int x, int y)
+        {
+            Boolean flag = false;
+            string a = board[x, y]?.name;
+            if (a != null || a != "" || a != "empty")
+            {
+                if (a == "WALL")
+                {
+
+                    flag = true;
+                }
+
+            }
+            return flag;
+        }
+
         public int moveNorthSouthY(int y, string direction)
         {
             if (direction == "NORTH")
@@ -257,27 +258,43 @@ namespace RoboRun
             }
 
         }
+        public int moveEastWestX(int x, string direction)
+        {
+
+            int temp = x + 1;
+            if (direction.ToUpper() == "EAST")
+            {
+                if (temp > 4)
+                {
+                    temp = 0;
+
+                    return temp;
+                }
+                else
+                {
+                    return temp;
+
+                }
+            }
+            else
+            {
+                if (temp < 0)
+                {
+
+                    temp = 4;
+                    return temp;
+                }
+                else
+                {
+                    return temp;
+                }
+            }
+
+        }
         public void clearElement(Item[,] board, int x, int y)
         {
             board[x, y].direction = "empty";
             board[x, y].name = "empty";
         }
-
-        public Boolean wallAhead(Item[,] board, int x, int y)
-        {
-            Boolean flag = false;
-            string a = board[x, y]?.name;
-            if (a != null || a != "" || a != "empty")
-            {
-                if (a == "WALL")
-                {
-
-                    flag = true;
-                }
-
-            }
-            return flag;
-        }
-
     }
 }
