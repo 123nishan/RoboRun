@@ -185,7 +185,99 @@ namespace RoboRun
 
         }
 
+        public int moveEastWestX(int x, string direction)
+        {
 
+            int temp = x + 1;
+            if (direction.ToUpper() == "EAST")
+            {
+                if (temp > 4)
+                {
+                    temp = 0;
+
+                    return temp;
+                }
+                else
+                {
+                    return temp;
+
+                }
+            }
+            else
+            {
+                if (temp < 0)
+                {
+
+                    temp = 4;
+                    return temp;
+                }
+                else
+                {
+                    return temp;
+                }
+            }
+
+        }
+        public int moveNorthSouthY(int y, string direction)
+        {
+            if (direction == "NORTH")
+            {
+                int temp = y + 1;
+                if (temp > 4)
+                {
+                    temp = 0;
+                    Console.WriteLine("moveed to north " + temp);
+                    return temp;
+                }
+                else
+                {
+                    return temp;
+
+                }
+            }
+            else if (direction == "")
+            {
+                Console.WriteLine("nodirection found ");
+                return 0;
+            }
+            else
+            {
+                int temp = y - 1;
+                if (temp < 0)
+                {
+
+                    temp = 4;
+                    return temp;
+                }
+                else
+                {
+                    return temp;
+                }
+
+            }
+
+        }
+        public void clearElement(Item[,] board, int x, int y)
+        {
+            board[x, y].direction = "empty";
+            board[x, y].name = "empty";
+        }
+
+        public Boolean wallAhead(Item[,] board, int x, int y)
+        {
+            Boolean flag = false;
+            string a = board[x, y]?.name;
+            if (a != null || a != "" || a != "empty")
+            {
+                if (a == "WALL")
+                {
+
+                    flag = true;
+                }
+
+            }
+            return flag;
+        }
 
     }
 }

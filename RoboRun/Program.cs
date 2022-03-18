@@ -107,13 +107,37 @@ namespace RoboRun
                             if (currentDirection == "NORTH" || currentDirection == "SOUTH")
                             {
 
+                                int prevX = tools.searchForRobotXPoint(boardArr);
+                                int prevY = tools.searchForRobotYPoint(boardArr);
+                                var moveD = tools.moveNorthSouthY(prevY, currentDirection);
 
+                                if (tools.wallAhead(boardArr, commandX, moveD) == false)
+                                {
+                                    tools.clearElement(boardArr, prevX, prevY);
+                                    tools.placeRobot(boardArr, commandX, moveD, currentDirection);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("wall ahead");
+                                }
 
                             }
                             else if (currentDirection == "EAST" || currentDirection == "WEST")
                             {
 
-                               
+                                int prevX = tools.searchForRobotXPoint(boardArr);
+                                int prevY = tools.searchForRobotYPoint(boardArr);
+                                var moveD = tools.moveEastWestX(prevX, currentDirection);
+                                if (tools.wallAhead(boardArr, moveD, commandY) == false)
+                                {
+                                    tools.clearElement(boardArr, prevX, prevY);
+
+                                    tools.placeRobot(boardArr, moveD, commandY, currentDirection);
+                                }
+                                else
+                                {
+                                    Console.WriteLine("wall ahead");
+                                }
 
                             }
 
