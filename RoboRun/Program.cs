@@ -36,13 +36,13 @@ namespace RoboRun
                  */
                 Console.WriteLine("Enter the command");
                 string command = Console.ReadLine().ToUpper();
-  
+
                 string[] splitCommand = tools.splitCommand(command);
 
                 /*
                  * extracting coodinates from the command
                  */
-            
+
                 string[] coodinates = tools.splitCoodinates(splitCommand);
                 //checking to see if the command is placement command
                 if (splitCommand.Length == 2)
@@ -59,12 +59,75 @@ namespace RoboRun
                     {
                         commandDirection = coodinates[2].ToUpper();
                     }
+                    if ((commandX >= 0) && (commandX <= 4) && (commandY >= 0) && (commandY <= 4))
+                    {
+
+
+                    }
 
 
                 }
 
+                // checking command length to break it down to place or movement command
+                else if (splitCommand.Length == 1)
+                {
+                    if (isFirstRobot == false)
+                    {
+                        //for left or right movement
+                        if (splitCommand[0] == "LEFT" || splitCommand[0] == "RIGHT")
+                        {
+
+                            string turned = tools.rotate(commandDirection, splitCommand[0]);
+                            commandDirection = turned;
+
+                            boardArr[commandX, commandY].direction = turned;
+                            Console.WriteLine("Rotated to: " + turned);
+
+
+
+                        }
+                        /*
+                         * to check current location of the robot
+                         */
+                        else if (splitCommand[0] == "REPORT")
+                        {
+
+
+                            string reportMessage = (boardArr[tools.searchForRobotXPoint(boardArr), tools.searchForRobotYPoint(boardArr)].x + 1) + "," +
+                                 (boardArr[tools.searchForRobotXPoint(boardArr), tools.searchForRobotYPoint(boardArr)].y + 1) + "," +
+                                 boardArr[tools.searchForRobotXPoint(boardArr), tools.searchForRobotYPoint(boardArr)].direction + "," +
+                                 boardArr[tools.searchForRobotXPoint(boardArr), tools.searchForRobotYPoint(boardArr)].name;
+
+                            Console.WriteLine(reportMessage);
+
+                        }
+                        else if (splitCommand[0] == "MOVE")
+                        {
+                            string currentDirection = boardArr[tools.searchForRobotXPoint(boardArr), tools.searchForRobotYPoint(boardArr)].direction;
+                            if (currentDirection == "NORTH" || currentDirection == "SOUTH")
+                            {
+
+
+
+                            }
+                            else if (currentDirection == "EAST" || currentDirection == "WEST")
+                            {
+
+                               
+
+                            }
+
+
+                        }
+                    }
 
                 }
+                else
+                {
+
+                }
+
+            }
         }
     }
 }
